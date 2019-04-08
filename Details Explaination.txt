@@ -1,0 +1,83 @@
+Hi,
+ As i am new to ML , this is my first competition , I don't have much experiance to write and explain the things. 
+Hope it will help you.
+
+
+# Predict the Publishing Material Type
+
+We are living in a world full of technology. Probably when we think about the 10 years challenge, we look back and think, how things have changed, how fast we have actually progressed and the sole reason is the level of research quality that is being done with the available resources. And because of so much research, there’s a huge competition between the new publishers and they look for really good marketing companies. And living in a digital world, people prefer to read articles online or watch videos rather than reading a book. As a member of a marketing agency, you’re given a dataset having the title, subjects and other features based on which you have to predict what will be the material of that to-be-published research so that you can tie-up with an ideal publisher and help them grow. The following are the material types:
+
+Book
+
+
+Sounddisc
+
+Videocass
+
+Soundcass
+
+Music
+
+Mixed
+
+Cr
+
+You have to predict the column “MaterialType” and please submit in the format given in the “sample_submissions.csv” file. Also, note evaluation criteria will be the weighted f1-score.
+
+
+1. Here are the all the steps used:-
+
+2. Importing the files Train and Test 
+
+3. As we can see some columns have same values in complete data set , so it won't help us in finding pattern, So lets remove it.
+
+4. In the text data we can replace missing data as a empty string.
+
+5. Lets create a new dataframe which include all text data 
+
+6. Feature engineering before data preprocessing:
+    Let's create some new feature which might be helpful in prediction.
+
+7. Cleaning of text data.
+Here tqdm used to show progress bar. 
+
+8. Lets create Dummy variables for multiclass classification using Beg of Words techninque. 
+
+9. Most Material Type only appear a few times, with very few Material type appearing several times (and Book appearing many times).
+
+10. TF-IDF : 
+I'm now going to try to improve this feature, by using something called TF-IDF (term-frequency-inverse-document-frequency). This means that we weigh the terms by how uncommon they are, meaning that we care more about rare words existing in Text. 
+
+11. Now here we will divide both Train and Test File again.
+In which train_df include Target variable and test_df don''t have Traget variable.
+
+12. Spliting the dataframe into train for model creation and test dataframe to test the model performance. 
+
+13. hyperparameter tunning for SGD classifier.
+
+read more about SGDClassifier() at http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html
+------------------------------
+default parameters
+SGDClassifier(loss=’hinge’, penalty=’l2’, alpha=0.0001, l1_ratio=0.15, fit_intercept=True, max_iter=None, tol=None, 
+shuffle=True, verbose=0, epsilon=0.1, n_jobs=1, random_state=None, learning_rate=’optimal’, eta0=0.0, power_t=0.5, 
+class_weight=None, warm_start=False, average=False, n_iter=None)
+
+some of methods
+fit(X, y[, coef_init, intercept_init, …])	Fit linear model with Stochastic Gradient Descent.
+predict(X)	Predict class labels for samples in X.
+
+
+Here we are using L1 regulrization as we have so many variables to prevent overfitting
+
+14. Model creation on remaining variables:
+
+Till now we have created model for only text data , So we have to include other variable to , So i am training a new model for remaining variable and then we will mearge both the model using STACKING techinuqe.
+
+15. Here again we are using SGDclassifier where loss function will be Hinge loss from SVM.
+ and we are using L2 Regularization to prevent overfitting.  
+
+16. STACKING of Both models:
+Here you can build multiple different learners and you use them to build an intermediate prediction, one prediction for each learned model. Then you add a new model which learns from the intermediate predictions the same target. This final model is said to be stacked on the top of the others, hence the name. Thus you might improve your overall performance, and often you end up with a model which is better than any individual intermediate model. 
+
+
+After stacking we will get final model which can be used for final prediction.
