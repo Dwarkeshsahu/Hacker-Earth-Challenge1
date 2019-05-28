@@ -20,3 +20,4 @@ Mixed
 Cr
 
 You have to predict the column “MaterialType”  note evaluation criteria will be the weighted f1-score.
+ 
